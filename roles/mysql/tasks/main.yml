@@ -1,0 +1,18 @@
+- name: install mysql
+  package:
+    name: mysql-server
+    update_cache: no
+    state: present
+  notify: restart mysql-server
+- name: allow connection from all
+  lineinfile:
+    path: /etc/mysql/my.cnf
+    regexp: "^bind-address"
+    line: "bind-address = 0.0.0.0"
+  notify: restart mysql-server
+- name: install python-mysqldb
+  package:
+    name: python-mysqldb
+    update_cache: no
+    state: present
+  notify: restart mysql-server
